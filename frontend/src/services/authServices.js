@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "https://prewise-ai-dn78.vercel.app//api/auth";
+const API_URL = "https://prewise-ai-dn78.vercel.app/api/auth";
 
 export const loginUser = async (email, password) => {
     const response = await axios.post(`${API_URL}/login`, { email, password });
