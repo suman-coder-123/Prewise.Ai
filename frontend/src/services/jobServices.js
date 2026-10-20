@@ -1,7 +1,7 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:5000/api/jobs";
-const RESUME_API_URL = "http://localhost:5000/api/resume";
+const API_URL = "https://prewise-ai-dn78.vercel.app/api/jobs";
+const RESUME_API_URL = "https://prewise-ai-dn78.vercel.app/api/resume";
 
 const getAuthHeaders = () => {
     const token = localStorage.getItem("token");

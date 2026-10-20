@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:5000/api/auth";
+const API_URL = "https://prewise-ai-dn78.vercel.app/api/auth";
 
 const authHeaders = () => ({
   headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
