@@ -49,7 +49,7 @@ const JobTracker = () => {
       setSmartLoading(true);
       setSmartFetched(false);
       const token = localStorage.getItem("token");
-      const { data } = await axios.get("http://localhost:5000/api/resume/suggestions", {
+      const { data } = await axios.get("https://prewise-ai-dn78.vercel.app/api/resume/suggestions", {
         headers: { Authorization: `Bearer ${token}` },
       });
       console.log("Smart suggestions response:", data);
@@ -112,7 +112,7 @@ const JobTracker = () => {
     try {
       setSearching(true);
       const token = localStorage.getItem("token");
-      const { data } = await axios.get("http://localhost:5000/api/jobs/search", {
+      const { data } = await axios.get("https://prewise-ai-dn78.vercel.app/api/jobs/search", {
         params: { query: searchQuery, location: searchLocation },
         headers: { Authorization: `Bearer ${token}` },
       });
