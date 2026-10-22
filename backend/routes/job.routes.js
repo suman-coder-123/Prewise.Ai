@@ -1,5 +1,6 @@
 import express from "express";
 import authMiddleware from "../middleware/auth.middleware.js";
+import validateId from "../middleware/validateId.middleware.js";
 import {
   createJob,
   getMyJobs,
@@ -10,6 +11,7 @@ import {
 } from "../controllers/job.controller.js";
 
 const router = express.Router();
+router.param("id", validateId);
 
 router.get("/search", authMiddleware, searchExternalJobs);
 router.get("/insights", authMiddleware, getIndianJobInsights);

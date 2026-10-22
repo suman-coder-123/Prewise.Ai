@@ -36,7 +36,13 @@ const fetchJobsPipe = async (query = "", location = "") => {
       url: (job.final_url && !job.final_url.includes("example.com"))
         ? job.final_url
         : generateApplyLink(job.job_title, job.company || job.employer_name),
-      tags: job.technology_slugs ? job.technology_slugs.split(" ") : (job.job_employment_type ? [job.job_employment_type] : []),
+      tags: Array.isArray(job.technology_slugs)
+        ? job.technology_slugs
+        : typeof job.technology_slugs === "string"
+          ? job.technology_slugs.split(" ").filter(Boolean)
+          : job.job_employment_type
+            ? [job.job_employment_type]
+            : [],
       salary: job.min_annual_salary_usd
         ? `$${job.min_annual_salary_usd} - $${job.max_annual_salary_usd}`
         : job.salary || "",

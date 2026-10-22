@@ -1,18 +1,18 @@
-// Loaded lazily: pdf-parse pulls in a native canvas binding that is
-// platform-specific. Importing it at startup can crash the whole function on
-// serverless (e.g. Linux), taking every route down with it.
-const loadPdfParse = async () => {
-    const { PDFParse } = await import("pdf-parse");
-    return PDFParse;
+// unpdf ships a pure-JS pdf.js build with no native canvas dependency, so it
+// works in serverless runtimes (Vercel/Linux) where the canvas binding is
+// unavailable. Loaded lazily to keep cold starts light.
+let unpdfPromise;
+
+const loadUnpdf = () => {
+    unpdfPromise ??= import("unpdf");
+    return unpdfPromise;
 };
 
 export const extractTextFromPDF = async (buffer) => {
-    const PDFParse = await loadPdfParse();
-    const parser = new PDFParse({ data: buffer });
+    const { extractText, getDocumentProxy } = await loadUnpdf();
 
-    const result = await parser.getText();
+    const pdf = await getDocumentProxy(new Uint8Array(buffer));
+    const { text } = await extractText(pdf, { mergePages: true });
 
-    await parser.destroy();
-
-    return result.text;
+    return text;
 };
